@@ -9,7 +9,7 @@
                     "name": "Move",
                     "type": "Value",
                     "id": "1c8bea06-ac2d-42b1-b4b3-7d218d676980",
-                    "expectedControlType": "",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
                 },
@@ -35,17 +35,6 @@
                     "name": "",
                     "id": "0140a42b-fe5f-4f02-926c-04698cd0ead9",
                     "path": "<Gamepad>/leftStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "ControlScheme",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "5c187d8a-001d-4015-8979-f9e26f26418b",
-                    "path": "<Pointer>/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "ControlScheme",
@@ -121,17 +110,6 @@
                 },
                 {
                     "name": "",
-                    "id": "fc042ef5-b9c9-464d-9346-25f82e0d8131",
-                    "path": "<Pointer>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "ControlScheme",
-                    "action": "Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "27d3c47e-200e-49d0-bb28-2854c1b0cfe6",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -145,17 +123,6 @@
                     "name": "",
                     "id": "61fc5106-66d4-42cc-8c0f-4016a4df0f02",
                     "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "ControlScheme",
-                    "action": "ChangeTarget",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "7511d60a-d09f-4b5b-8c21-9fb1ee7d1e58",
-                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "ControlScheme",
