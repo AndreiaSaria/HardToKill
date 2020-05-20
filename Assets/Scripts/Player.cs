@@ -6,10 +6,13 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public static PlayerInputActions controls;
+    public ParticleSystem particle;
     [SerializeField] private float moveSpeed = 3f;
-    private Vector2 moveInput;
+
+    private Vector2 moveInput = Vector3.zero;
     private Vector3 moveTowards;
     private Rigidbody rb;
+    private bool mouseUsed = false;
     TerrainCollider terrain;
 
     private void Awake()
@@ -25,15 +28,39 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
-        HandlerForMouseInput();
 
-        transform.Translate(moveTowards.normalized * moveSpeed * Time.deltaTime);
+
+        //transform.Translate(moveTowards.normalized * moveSpeed * Time.deltaTime);
 
     }
 
     private void FixedUpdate()
     {
-        rb.velocity = transform.forward * moveSpeed * moveInput.y + transform.right * moveSpeed * moveInput.x; 
+        Debug.DrawRay(moveTowards,Vector3.up , Color.blue, 5f);
+        mouseUsed = HandlerForMouseInput();
+        if (!mouseUsed || moveInput.magnitude > 0f)
+        {
+            moveTowards = transform.position;
+            mouseUsed = false;
+            rb.velocity = transform.forward * moveSpeed * moveInput.y + transform.right * moveSpeed * moveInput.x;
+        }
+        else
+        {
+            if (Vector3.Distance(transform.position, moveTowards) > 2f)
+            {
+                transform.rotation = Quaternion.LookRotation(moveTowards, Vector3.up);
+                //transform.forward = moveTowards;
+                rb.velocity = transform.forward * moveSpeed;
+                //Debug.Log(Vector3.Distance(transform.position, moveTowards));
+            }
+            else
+            {
+                mouseUsed = false;
+                rb.velocity = Vector3.zero;
+            }
+        }
+
+        
         
     }
 
@@ -46,7 +73,7 @@ public class Player : MonoBehaviour
         controls.Disable();
     }
 
-    private void HandlerForMouseInput()
+    private bool HandlerForMouseInput()
     {//Colei daqui https://gamedevbeginner.com/how-to-convert-the-mouse-position-to-world-space-in-unity-2d-3d/#screen_to_world_3d
         if (Input.GetMouseButtonDown(0))
         {
@@ -55,16 +82,19 @@ public class Player : MonoBehaviour
 
             if (terrain.Raycast(ray, out hitData, 1000))
             {
-                moveTowards = hitData.point - new Vector3(transform.position.x, 0, transform.position.z);
-            }
+                moveTowards = hitData.point;// - new Vector3(transform.position.x, 0, transform.position.z);
+                particle.transform.position = moveTowards;
 
+                return true;
+            }
         }
 
         if (Input.GetMouseButtonUp(0))
         {
-            moveTowards = Vector3.zero;
+            //moveTowards = Vector3.zero;
+            return true;
         }
-
+        return true;
     }
 
 }
