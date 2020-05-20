@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//ATENÇÃO! SE QUISER USAR O RAYCAST O OBJETO GROUND TEM DE TER UM COLLIDER DIFERENTE DE MESH. TAMBÉM NÃO DEVE SER UM COLLIDER 2D.
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -16,7 +16,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 aimInput;
     private Vector3 moveTowards;
     private Rigidbody rb;
-    TerrainCollider terrain;
+    //TerrainCollider terrain;
+    private LayerMask ground;
     private Animator anim;
     private float cont;
     //private static int attack = Animator.StringToHash("Base.Attack");
@@ -26,11 +27,12 @@ public class PlayerMovement : MonoBehaviour
         moveTowards = transform.position;
         //Para caso o player apareça em qualquer lugar diferente do inicial
 
-        anim = GetComponentInChildren<Animator>();
+        anim = GetComponent<Animator>();
 
         rb = GetComponent<Rigidbody>();
 
-        terrain = Terrain.activeTerrain.GetComponent<TerrainCollider>();
+        //terrain = Terrain.activeTerrain.GetComponent<TerrainCollider>();
+        ground = LayerMask.GetMask("Ground");
 
         controls = new PlayerInputActions();
         controls.PlayerMovement.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
@@ -48,11 +50,10 @@ public class PlayerMovement : MonoBehaviour
     {
         Debug.DrawRay(moveTowards,Vector3.up , Color.blue, 5f);
 
-        Movement();
-        
+        anim.SetBool("Walking", Movement());
 
         //Demonstrar que o new input system não recebe mais de 2teclas ao mesmo tempo
-        
+
     }
 
     private void OnEnable()
@@ -78,12 +79,14 @@ public class PlayerMovement : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hitData;
 
-            if (terrain.Raycast(ray, out hitData, 1000))
+            if (Physics.Raycast(ray, out hitData, 1000, ground))
             {
                 moveTowards = hitData.point;// - new Vector3(transform.position.x, 0, transform.position.z);
+
                 //particle.transform.position = moveTowards;
                 //particle.Play();
             }
+
 
         }
 
@@ -98,8 +101,9 @@ public class PlayerMovement : MonoBehaviour
         return true;
     }
 
-    private void Movement()
+    private bool Movement()
     {
+
         HandlerForMouseInput();
 
         if (moveInput.magnitude > 0f) //Caso estejamos a mover com o joystick
@@ -132,6 +136,7 @@ public class PlayerMovement : MonoBehaviour
                 Quaternion rotation = Quaternion.LookRotation(new Vector3(aimInput.x, 0, aimInput.y));
                 transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotateSpeed);
             }
+            return true;
         }
         else //Caso estejamos a mover com o mouse
         {
@@ -147,11 +152,15 @@ public class PlayerMovement : MonoBehaviour
                 transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotateSpeed);
 
                 rb.velocity = transform.forward * moveSpeed * (1 + Time.deltaTime);
+                return true;
             }
             else
             {
                 rb.velocity = Vector3.zero;
+                return false;
             }
+            
         }
+
     }
 }
