@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public static PlayerInputActions controls;
     public ParticleSystem particle;
     [SerializeField] private float moveSpeed = 3f;
+    [SerializeField] private float rotateSpeed = 10f;
 
     private Vector2 moveInput = Vector3.zero;
     private Vector3 moveTowards;
@@ -18,49 +19,22 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+
         terrain = Terrain.activeTerrain.GetComponent<TerrainCollider>();
+
         controls = new PlayerInputActions();
         controls.PlayerMovement.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
         controls.PlayerMovement.Move.canceled += ctx => moveInput = Vector2.zero;
-        //controls.PlayerMovement.MoveToPosition.performed += ctx => moveTowards = ctx.ReadValue<Vector2>().normalized;
-        //controls.PlayerMovement.MoveToPosition.canceled += ctx => moveTowards = Vector2.zero;
 
     }
+
     private void Update()
     {
-
-
-        //transform.Translate(moveTowards.normalized * moveSpeed * Time.deltaTime);
-
-    }
-
-    private void FixedUpdate()
-    {
         Debug.DrawRay(moveTowards,Vector3.up , Color.blue, 5f);
-        mouseUsed = HandlerForMouseInput();
-        if (!mouseUsed || moveInput.magnitude > 0f)
-        {
-            moveTowards = transform.position;
-            mouseUsed = false;
-            rb.velocity = transform.forward * moveSpeed * moveInput.y + transform.right * moveSpeed * moveInput.x;
-        }
-        else
-        {
-            if (Vector3.Distance(transform.position, moveTowards) > 2f)
-            {
-                transform.rotation = Quaternion.LookRotation(moveTowards, Vector3.up);
-                //transform.forward = moveTowards;
-                rb.velocity = transform.forward * moveSpeed;
-                //Debug.Log(Vector3.Distance(transform.position, moveTowards));
-            }
-            else
-            {
-                mouseUsed = false;
-                rb.velocity = Vector3.zero;
-            }
-        }
 
-        
+        Movement();
+
+
         
     }
 
@@ -97,4 +71,41 @@ public class Player : MonoBehaviour
         return true;
     }
 
+    private void Movement()
+    {
+        mouseUsed = HandlerForMouseInput();
+
+        if (!mouseUsed || moveInput.magnitude > 0f)
+        {
+            moveTowards = transform.position; //Por que isso? Porque o vetor que marca a posição no espaço ficaria parado logo que soltamos do mouse e então estaria a puxar o objeto para ele.
+            mouseUsed = false;
+
+            rb.velocity = transform.forward * moveSpeed * moveInput.y * (1 + Time.deltaTime);// + transform.right * moveSpeed * moveInput.x; Esta continuação funciona caso não queiramos rodar.
+            //Por que eu adiciono 1 ao delta time? Porque sem isso o move speed fica devagar, já que o delta time é normalmente um número decimal
+
+            transform.Rotate(0, moveInput.x * (rotateSpeed * Time.deltaTime * 30), 0); //Aqui a gente só roda em relação a y.
+            //Por que eu multipliquei esse rotate speed por 30? Porque rodando pelo input fica bem mais devagar do que fazendo o slerp que fiz na parte do input de mouse.
+        }
+        else
+        {
+            if (Vector3.Distance(transform.position, moveTowards) > 1.5f)
+            {
+                //Forma número 1, fazendo rotação sem speed
+                //transform.forward = new Vector3(moveTowards.x, transform.position.y, moveTowards.z) - transform.position ;
+                //Qual o motivo disso? Queremos que o objeto vire para onde queremos mas sem sair do eixo de y onde está.
+                //Logo, coloco a altura dele em y dentro da posição para onde ele deve virar.
+
+                //Forma número 2, fazendo rotação com speed
+                Quaternion rotation = Quaternion.LookRotation(new Vector3(moveTowards.x, transform.position.y, moveTowards.z) - transform.position);
+                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotateSpeed);
+
+                rb.velocity = transform.forward * moveSpeed * (1 + Time.deltaTime);
+            }
+            else
+            {
+                mouseUsed = false;
+                rb.velocity = Vector3.zero;
+            }
+        }
+    }
 }
