@@ -35,10 +35,10 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""ChangeTarget"",
-                    ""type"": ""Button"",
-                    ""id"": ""82941f17-afdf-44f2-9e64-7683b45dd03f"",
-                    ""expectedControlType"": ""Button"",
+                    ""name"": ""Aim"",
+                    ""type"": ""Value"",
+                    ""id"": ""9aa83e54-9198-4cd5-b5bc-df5e30afedae"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
                 }
@@ -58,7 +58,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 {
                     ""name"": ""WASD"",
                     ""id"": ""e597a8f8-199b-4746-bddd-d144a4d21913"",
-                    ""path"": ""2DVector"",
+                    ""path"": ""2DVector(mode=1)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -113,7 +113,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""235c4e0e-f55b-4c50-b1f9-c8b2e11b86f1"",
-                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""ControlScheme"",
@@ -134,23 +134,12 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""61fc5106-66d4-42cc-8c0f-4016a4df0f02"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""id"": ""4f2dbdab-dbb5-4bd3-83e6-427ac2db3bd2"",
+                    ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""ControlScheme"",
-                    ""action"": ""ChangeTarget"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""2c022235-ce7e-4147-bdd8-9d92c2231870"",
-                    ""path"": ""<Keyboard>/shift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""ControlScheme"",
-                    ""action"": ""ChangeTarget"",
+                    ""action"": ""Aim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -190,7 +179,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         m_PlayerMovement = asset.FindActionMap("PlayerMovement", throwIfNotFound: true);
         m_PlayerMovement_Move = m_PlayerMovement.FindAction("Move", throwIfNotFound: true);
         m_PlayerMovement_Attack = m_PlayerMovement.FindAction("Attack", throwIfNotFound: true);
-        m_PlayerMovement_ChangeTarget = m_PlayerMovement.FindAction("ChangeTarget", throwIfNotFound: true);
+        m_PlayerMovement_Aim = m_PlayerMovement.FindAction("Aim", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -242,14 +231,14 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
     private IPlayerMovementActions m_PlayerMovementActionsCallbackInterface;
     private readonly InputAction m_PlayerMovement_Move;
     private readonly InputAction m_PlayerMovement_Attack;
-    private readonly InputAction m_PlayerMovement_ChangeTarget;
+    private readonly InputAction m_PlayerMovement_Aim;
     public struct PlayerMovementActions
     {
         private @PlayerInputActions m_Wrapper;
         public PlayerMovementActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_PlayerMovement_Move;
         public InputAction @Attack => m_Wrapper.m_PlayerMovement_Attack;
-        public InputAction @ChangeTarget => m_Wrapper.m_PlayerMovement_ChangeTarget;
+        public InputAction @Aim => m_Wrapper.m_PlayerMovement_Aim;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -265,9 +254,9 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 @Attack.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnAttack;
                 @Attack.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnAttack;
                 @Attack.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnAttack;
-                @ChangeTarget.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnChangeTarget;
-                @ChangeTarget.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnChangeTarget;
-                @ChangeTarget.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnChangeTarget;
+                @Aim.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnAim;
+                @Aim.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnAim;
+                @Aim.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnAim;
             }
             m_Wrapper.m_PlayerMovementActionsCallbackInterface = instance;
             if (instance != null)
@@ -278,9 +267,9 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 @Attack.started += instance.OnAttack;
                 @Attack.performed += instance.OnAttack;
                 @Attack.canceled += instance.OnAttack;
-                @ChangeTarget.started += instance.OnChangeTarget;
-                @ChangeTarget.performed += instance.OnChangeTarget;
-                @ChangeTarget.canceled += instance.OnChangeTarget;
+                @Aim.started += instance.OnAim;
+                @Aim.performed += instance.OnAim;
+                @Aim.canceled += instance.OnAim;
             }
         }
     }
@@ -298,6 +287,6 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
-        void OnChangeTarget(InputAction.CallbackContext context);
+        void OnAim(InputAction.CallbackContext context);
     }
 }

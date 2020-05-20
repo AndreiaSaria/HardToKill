@@ -22,10 +22,10 @@
                     "interactions": ""
                 },
                 {
-                    "name": "ChangeTarget",
-                    "type": "Button",
-                    "id": "82941f17-afdf-44f2-9e64-7683b45dd03f",
-                    "expectedControlType": "Button",
+                    "name": "Aim",
+                    "type": "Value",
+                    "id": "9aa83e54-9198-4cd5-b5bc-df5e30afedae",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
                 }
@@ -45,7 +45,7 @@
                 {
                     "name": "WASD",
                     "id": "e597a8f8-199b-4746-bddd-d144a4d21913",
-                    "path": "2DVector",
+                    "path": "2DVector(mode=1)",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -100,7 +100,7 @@
                 {
                     "name": "",
                     "id": "235c4e0e-f55b-4c50-b1f9-c8b2e11b86f1",
-                    "path": "<Gamepad>/rightTrigger",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "ControlScheme",
@@ -121,23 +121,12 @@
                 },
                 {
                     "name": "",
-                    "id": "61fc5106-66d4-42cc-8c0f-4016a4df0f02",
-                    "path": "<Gamepad>/buttonSouth",
+                    "id": "4f2dbdab-dbb5-4bd3-83e6-427ac2db3bd2",
+                    "path": "<Gamepad>/rightStick",
                     "interactions": "",
                     "processors": "",
                     "groups": "ControlScheme",
-                    "action": "ChangeTarget",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2c022235-ce7e-4147-bdd8-9d92c2231870",
-                    "path": "<Keyboard>/shift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "ControlScheme",
-                    "action": "ChangeTarget",
+                    "action": "Aim",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
