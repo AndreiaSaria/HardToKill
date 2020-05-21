@@ -48,9 +48,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        Debug.DrawRay(moveTowards,Vector3.up , Color.blue, 5f);
+        //Debug.DrawRay(moveTowards,Vector3.up , Color.blue, 5f);
 
         anim.SetBool("Walking", Movement());
+        
+
 
         //Demonstrar que o new input system não recebe mais de 2teclas ao mesmo tempo
 
@@ -63,6 +65,16 @@ public class PlayerMovement : MonoBehaviour
     private void OnDisable() //Por que não desativar o handler aqui? Porque quando desativamos o script o update também é desativado.
     {
         controls.Disable();
+    }
+
+    public void Death()
+    {
+        Debug.Log("Player dead");
+    }
+
+    public void DamageTaken()
+    {
+        //Debug.Log("Player Took Damage");
     }
 
     private bool HandlerForMouseInput() //colocar touch aqui
@@ -127,21 +139,26 @@ public class PlayerMovement : MonoBehaviour
             else if(tankWithAim) //Nesse movimento ir para a frente é igual a ir no sentido da rotação.
             {
                 rb.velocity = transform.forward * moveSpeed * moveInput.y * (1+Time.deltaTime) + transform.right * moveSpeed * moveInput.x * (1+Time.deltaTime);
+
                 Quaternion rotation = Quaternion.LookRotation(new Vector3(aimInput.x, 0, aimInput.y));
                 transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotateSpeed);
             }
             else //Nesse movimento ir para a frente é ir no sentido norte da câmera
             {
                 rb.velocity = Vector3.forward * moveSpeed * moveInput.y + Vector3.right * moveSpeed * moveInput.x;
+
                 Quaternion rotation = Quaternion.LookRotation(new Vector3(aimInput.x, 0, aimInput.y));
                 transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotateSpeed);
             }
+
             return true;
         }
         else //Caso estejamos a mover com o mouse
         {
+
             if (Vector3.Distance(transform.position, moveTowards) > 1.5f)
             {
+
                 //Forma número 1, fazendo rotação sem speed
                 //transform.forward = new Vector3(moveTowards.x, transform.position.y, moveTowards.z) - transform.position ;
                 //Qual o motivo disso? Queremos que o objeto vire para onde queremos mas sem sair do eixo de y onde está.
