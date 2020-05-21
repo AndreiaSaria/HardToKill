@@ -33,8 +33,9 @@ public class PlayerHitWeapon : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other)
-    {
-        if(other.tag == "Enemy" && !enemy.Contains(other.gameObject))
+    {//colei daqui https://answers.unity.com/questions/665241/affecting-multiple-objects-on-a-trigger.html
+
+        if (other.tag == "Enemy" && !enemy.Contains(other.gameObject))
         {
             enemy.Add(other.gameObject);
         }
