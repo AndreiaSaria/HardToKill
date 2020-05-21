@@ -20,7 +20,7 @@ public class HPCount : MonoBehaviour
     public void Damaged(int i)
     {
         HP = HP - i;
-        Debug.Log("Hp dropped " + i + "values");
+        //Debug.Log("Hp dropped " + i + "values");
 
         if (HP <= 0)
         {

@@ -25,7 +25,6 @@ public class PlayerHitWeapon : MonoBehaviour
     {
         if(enemy != null)
         {
-            Debug.Log(enemy.Count +" Is the amount of enemies being hit")
             foreach (GameObject g in enemy)
             {
                 g.GetComponent<HPCount>().Damaged(i);
@@ -35,7 +34,7 @@ public class PlayerHitWeapon : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Enemy")
+        if(other.tag == "Enemy" && !enemy.Contains(other.gameObject))
         {
             enemy.Add(other.gameObject);
         }
