@@ -5,10 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider))]
 public class PlayerHitWeapon : MonoBehaviour
 {
-    //private Collider col;
+
     private Collider hitbox;
-    //private GameObject[] enemy;
-    private List<GameObject> enemy = new List<GameObject>();
+    private List<GameObject> enemy = new List<GameObject>(); //Por que uma lista? Porque mais de um inimigo pode estar na range de ataque;
 
     private void Start () {
         //col = GetComponent<CapsuleCollider> ();
@@ -27,7 +26,14 @@ public class PlayerHitWeapon : MonoBehaviour
         {
             foreach (GameObject g in enemy)
             {
-                g.GetComponent<HPCount>().Damaged(i);
+                if (g != null)//Por que isso? Porque o inimigo pode ter sido destroyed antes do attack hit.
+                {
+                    g.GetComponent<HPCount>().Damaged(i);
+                }
+                else
+                {
+                    enemy.Remove(g);
+                }
             }
         }
     }

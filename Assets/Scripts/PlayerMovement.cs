@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 //ATENÇÃO! SE QUISER USAR O RAYCAST O OBJETO GROUND TEM DE TER UM COLLIDER DIFERENTE DE MESH. TAMBÉM NÃO DEVE SER UM COLLIDER 2D.
 
+//Long Script Ahead
+
 public class PlayerMovement : MonoBehaviour
 {
     public static PlayerInputActions controls;
@@ -20,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     private LayerMask ground;
     private Animator anim;
     private float cont;
+    private bool dead = false;//Você nasce vivo.
     //private static int attack = Animator.StringToHash("Base.Attack");
 
     private void Awake()
@@ -48,28 +51,26 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        //Debug.DrawRay(moveTowards,Vector3.up , Color.blue, 5f);
 
-        anim.SetBool("Walking", Movement());
-        
-
-
-        //Demonstrar que o new input system não recebe mais de 2teclas ao mesmo tempo
+        if (!dead)// Já viu morto se mover?
+        {
+            anim.SetBool("Walking", Movement());  //Tática ninja, aqui o Movement retorna true se o player estiver se movendo, ou seja, recebeu um input.
+            //E o charme disso que já altero logo no bool do animator
+        }
 
     }
 
-    private void OnEnable()
-    {
-        controls.Enable();
-    }
-    private void OnDisable() //Por que não desativar o handler aqui? Porque quando desativamos o script o update também é desativado.
-    {
-        controls.Disable();
-    }
+    private void OnEnable() => controls.Enable();
 
-    public void Death()
+    private void OnDisable() => controls.Disable(); //Por que não desativar o handler aqui? Porque quando desativamos o script o update também é desativado.
+
+    public void Death() //Recebe de HPCount
     {
-        Debug.Log("Player dead");
+        anim.SetBool("Dead", true);
+        dead = true;
+        GameController gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+
+        gameController.GameEnd();
     }
 
     public void DamageTaken()
@@ -94,9 +95,6 @@ public class PlayerMovement : MonoBehaviour
             if (Physics.Raycast(ray, out hitData, 1000, ground))
             {
                 moveTowards = hitData.point;// - new Vector3(transform.position.x, 0, transform.position.z);
-
-                //particle.transform.position = moveTowards;
-                //particle.Play();
             }
 
 
@@ -108,7 +106,6 @@ public class PlayerMovement : MonoBehaviour
             cont = 0;
             particle.transform.position = moveTowards;
             particle.Play();
-            //moveTowards = Vector3.zero;
         }
         return true;
     }

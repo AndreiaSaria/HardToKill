@@ -91,8 +91,12 @@ public class ArcherMovement : MonoBehaviour
 
     public void FlyArrow()
     {//colei daqui https://answers.unity.com/questions/178258/detach-from-parent.html
-        instantiatedArrow.transform.parent = null; //Tirando do parent
-        instantiatedArrow.GetComponent<Rigidbody>().AddForce(transform.forward * arrowSpeed, ForceMode.Impulse);
+        if(instantiatedArrow.transform.parent != null)
+        {
+            instantiatedArrow.transform.parent = null; //Tirando do parent
+            instantiatedArrow.GetComponent<Rigidbody>().AddForce(transform.forward * arrowSpeed, ForceMode.Impulse);
+        }
+
 
     }
 

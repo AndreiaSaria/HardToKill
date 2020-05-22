@@ -26,7 +26,7 @@ public class HPCount : MonoBehaviour
             SendMessage("Death");
             sliderHp.gameObject.SetActive(false);
 
-            if(gameObject.tag != "Player")
+            if (this.gameObject.tag != "Player")
             {
                 Destroy(this.gameObject, 4f);
             }
