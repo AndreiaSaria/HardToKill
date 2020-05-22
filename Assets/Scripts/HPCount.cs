@@ -15,6 +15,11 @@ public class HPCount : MonoBehaviour
         if (HP <= 0)
         {
             SendMessage("Death");
+
+            if(gameObject.tag != "Player")
+            {
+                Destroy(gameObject, 4f);
+            }
         }
         else
         {

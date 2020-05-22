@@ -16,12 +16,7 @@ public class EnemyHit : MonoBehaviour
        
     }
 
-    private void Update()
-    {
-
-    }
-
-    public void AttackHit(int i)
+    public void AttackHit(int i) //Isto está na animação como um evento
     {
         if (player != null)
         {

@@ -8,13 +8,13 @@ public class MushMovement : MonoBehaviour
     [SerializeField] private float rotateSpeed = 5f;
 
     private Animation anim;
-    private GameObject player;
+    private Transform playerTransform;
     private Rigidbody rb;
     private bool dead = false;
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         anim = GetComponent<Animation>();
         rb = GetComponent<Rigidbody>();
     }
@@ -24,9 +24,9 @@ public class MushMovement : MonoBehaviour
     {
         if (!dead)
         {
-            if (Vector3.Distance(transform.position, player.transform.position) < 10)
+            if (Vector3.Distance(transform.position, playerTransform.position) < 10)
             {
-                if (Vector3.Distance(transform.position, player.transform.position) < 3)
+                if (Vector3.Distance(transform.position, playerTransform.position) < 3)
                 {
                     anim.Play("Attack");
                 }
@@ -34,9 +34,7 @@ public class MushMovement : MonoBehaviour
                 {
                     anim.Play("Run");
 
-                    Vector3 moveTowards = player.transform.position;
-
-                    Quaternion rotation = Quaternion.LookRotation(new Vector3(moveTowards.x, transform.position.y, moveTowards.z) - transform.position);
+                    Quaternion rotation = Quaternion.LookRotation(new Vector3(playerTransform.position.x, transform.position.y, playerTransform.position.z) - transform.position);
                     transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotateSpeed);
 
                     rb.velocity = transform.forward * speed * (1 + Time.deltaTime);

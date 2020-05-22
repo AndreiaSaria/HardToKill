@@ -9,20 +9,21 @@ public class ArcherMovement : MonoBehaviour
     [SerializeField] private float arrowSpeed = 50f;
 
     private Animator anim;
-    private GameObject player;
+    private Transform playerTransform; //Por que isso? Porque sei que se salvar como transform ele vai sofrendo updates.
+    //e me salva de ficar fazendo vários vetores. Isso aumenta MUITO a performance
     public GameObject handPlacement;
     public GameObject arrow;
     private GameObject instantiatedArrow;
     private Rigidbody rb;
     private bool dead = false;
-    private LayerMask scenario;
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        //playerTransform = player.transform;
+        playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
-        scenario = LayerMask.GetMask("Scenario");
     }
 
     void Update()
@@ -30,7 +31,7 @@ public class ArcherMovement : MonoBehaviour
         if (!dead)
         {
 
-            if (Vector3.Distance(transform.position,player.transform.position) < 40)
+            if (Vector3.Distance(transform.position,playerTransform.position) < 40)
             {//Pensei em fazer um movimento do arqueiro correr, mas fica estranho quando ele corre para longe do player.
                 
                 //if(Vector3.Distance(transform.position,player.transform.position) < 10 && !Physics.Raycast(this.transform.position,transform.forward, 5f ,scenario))
@@ -49,20 +50,16 @@ public class ArcherMovement : MonoBehaviour
                 //}
 
                 //Agora estou fazendo ele chegar perto do player se estiver muito longe.
-                if(Vector3.Distance(transform.position,player.transform.position) > 20)
+                if(Vector3.Distance(transform.position,playerTransform.position) > 20)
                 {
-                    Vector3 moveTowards = player.transform.position;
-
-                    Quaternion rotation = Quaternion.LookRotation(new Vector3(moveTowards.x, transform.position.y, moveTowards.z) - transform.position);
+                    Quaternion rotation = Quaternion.LookRotation(new Vector3(playerTransform.position.x, transform.position.y, playerTransform.position.z) - transform.position);
                     transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotateSpeed);
 
                     rb.velocity = transform.forward * speed * (1 + Time.deltaTime);
                 }
                 else
                 {
-                    Vector3 moveTowards = player.transform.position;
-
-                    Quaternion rotation = Quaternion.LookRotation(new Vector3(moveTowards.x, transform.position.y, moveTowards.z) - transform.position);
+                    Quaternion rotation = Quaternion.LookRotation(new Vector3(playerTransform.position.x, transform.position.y, playerTransform.position.z) - transform.position);
                     transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotateSpeed);
 
                     anim.SetBool("Attacking", true);

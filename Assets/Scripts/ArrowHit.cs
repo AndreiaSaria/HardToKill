@@ -31,6 +31,7 @@ public class ArrowHit : MonoBehaviour
         {
             player = other.gameObject;
             AttackHit(damage);
+            Destroy(this.gameObject);
         }
 
     }
