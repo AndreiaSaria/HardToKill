@@ -53,7 +53,11 @@ public class MushMovement : MonoBehaviour
 
     public void DamageTaken()
     {
-        anim.Play("Damage");
+        if (!dead)
+        {
+            anim.Play("Damage");
+        }
+
     }
 
   

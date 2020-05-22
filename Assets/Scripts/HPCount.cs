@@ -4,21 +4,11 @@ using UnityEngine;
 
 public class HPCount : MonoBehaviour
 {
-    //// Start is called before the first frame update
-    //void Start()
-    //{
-
-    //}
-
-    //// Update is called once per frame
-    //void Update()
-    //{
-
-    //}
     public int HP;
     
-    public void Damaged(int i)
-    {
+    public void Damaged(int i) //Desse jeito que fiz não dá para ser estático. That just happened.
+    {//Sei que passar mensagens não é a melhor forma de se fazer isso. That just happened²
+
         HP = HP - i;
         //Debug.Log("Hp dropped " + i + "values");
 
