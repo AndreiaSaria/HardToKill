@@ -14,7 +14,7 @@ public class GameController : MonoBehaviour
     public GameObject gameOverText;
 
     private TextMeshProUGUI texto;
-
+    private bool gameHasEnded;
     private PlayerMovement player;
 
     public string[] textlist;
@@ -31,16 +31,22 @@ public class GameController : MonoBehaviour
             pauseCanvas.SetActive(false);
             endGameCanvas.SetActive(false);
         }
-
+        gameHasEnded = false;
     }
 
     public void GameEnd() //Se o player morrer
     {
-        player.enabled = false;
-        texto.SetText(textlist[Random.Range(0, textlist.Length)]); //Escolher um texto dentro do vetor de strings
-        
-        endGameCanvas.SetActive(true);
-        pauseButton.SetActive(false);
+        if (!gameHasEnded)//Se o jogo não acabou, acabar.
+        {
+            gameHasEnded = true;
+
+            player.enabled = false;//Parar com o loop de update do player
+            texto.SetText(textlist[Random.Range(0, textlist.Length)]); //Escolher um texto dentro do vetor de strings
+
+            endGameCanvas.SetActive(true);
+            pauseButton.SetActive(false);
+        }
+
     }
 
     public void GamePause() 
