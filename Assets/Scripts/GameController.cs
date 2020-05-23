@@ -17,7 +17,7 @@ public class GameController : MonoBehaviour
     private bool gameHasEnded;
     private PlayerMovement player;
 
-    public string[] textlist;
+    public string[] youLostTextList;
 
     private void Start()
     {
@@ -41,7 +41,7 @@ public class GameController : MonoBehaviour
             gameHasEnded = true;
 
             player.enabled = false;//Parar com o loop de update do player
-            texto.SetText(textlist[Random.Range(0, textlist.Length)]); //Escolher um texto dentro do vetor de strings
+            texto.SetText(youLostTextList[Random.Range(0, youLostTextList.Length)]); //Escolher um texto dentro do vetor de strings
 
             endGameCanvas.SetActive(true);
             pauseButton.SetActive(false);
@@ -60,6 +60,20 @@ public class GameController : MonoBehaviour
         {
             pauseCanvas.SetActive(false);
             Time.timeScale = 1;
+        }
+    }
+
+    public void GameTutorial(bool active)
+    {
+        if (active)
+        {
+            Time.timeScale = 0;
+            pauseButton.SetActive(false);
+        }
+        else
+        {
+            Time.timeScale = 1;
+            pauseButton.SetActive(true);
         }
     }
 

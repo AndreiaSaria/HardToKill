@@ -9,8 +9,12 @@ public class PlayerMovement : MonoBehaviour
 {
     public static PlayerInputActions controls;
     public ParticleSystem particle;
-    public bool tank = false;
-    public bool tankWithAim = false;
+    //public bool tank = false;
+    //public bool tankWithAim = false;
+    private bool tank;
+    private bool tankWithAim;
+    private int j = 0;
+
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private float rotateSpeed = 10f;
 
@@ -23,10 +27,31 @@ public class PlayerMovement : MonoBehaviour
     private Animator anim;
     private float cont;
     private bool dead = false;//Você nasce vivo.
+    private GameController gameController; //Para permitir o pause pelo controle do xbox e dar trigger na função de morte.
+
     //private static int attack = Animator.StringToHash("Base.Attack");
 
     private void Awake()
     {
+        int j = PlayerPrefs.GetInt("Movement");
+        if(j == 0)
+        {
+            tank = true;
+            tankWithAim = false;
+        }
+        else if(j == 1)
+        {
+            tank = false;
+            tankWithAim = true;
+        }
+        else
+        {
+            tank = false;
+            tankWithAim = false;
+        }
+
+        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+
         moveTowards = transform.position;
         //Para caso o player apareça em qualquer lugar diferente do inicial
 
@@ -37,15 +62,17 @@ public class PlayerMovement : MonoBehaviour
         //terrain = Terrain.activeTerrain.GetComponent<TerrainCollider>();
         ground = LayerMask.GetMask("Ground");
 
+        //PELO NEW INPUT SYSTEM RECEBEMOS AQUI ALGUMAS COISAS
         controls = new PlayerInputActions();
-        controls.PlayerMovement.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
-        controls.PlayerMovement.Move.canceled += ctx => moveInput = Vector2.zero;
+        controls.PlayerMovement.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>(); //Recebendo para onde mover
+        controls.PlayerMovement.Move.canceled += ctx => moveInput = Vector2.zero; //Parar de mover se soltar
 
-        controls.PlayerMovement.Aim.performed += ctx => aimInput = ctx.ReadValue<Vector2>();
-        
+        controls.PlayerMovement.Aim.performed += ctx => aimInput = ctx.ReadValue<Vector2>(); //Recebendo para onde mirar
 
-        controls.PlayerMovement.Attack.performed += ctx => anim.SetBool("Attack", true);
-        controls.PlayerMovement.Attack.canceled += ctx => anim.SetBool("Attack", false);
+        controls.PlayerMovement.Attack.performed += ctx => anim.SetBool("Attack", true); //Enquanto segurar o ataque atacar
+        controls.PlayerMovement.Attack.canceled += ctx => anim.SetBool("Attack", false); //Quando soltar, parar.
+
+        controls.PlayerMovement.Pause.performed += ctx => gameController.GamePause(); //Pausar o jogo pelo controle
 
     }
 
@@ -68,7 +95,6 @@ public class PlayerMovement : MonoBehaviour
     {
         anim.SetBool("Dead", true);
         dead = true;
-        GameController gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
 
         gameController.GameEnd();
     }
