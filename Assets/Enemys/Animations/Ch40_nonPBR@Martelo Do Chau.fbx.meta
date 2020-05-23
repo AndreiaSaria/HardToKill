@@ -50,7 +50,7 @@ ModelImporter:
       loopBlend: 1
       loopBlendOrientation: 1
       loopBlendPositionY: 1
-      loopBlendPositionXZ: 1
+      loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
@@ -58,7 +58,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.35497835
+        functionName: AttackHit
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: c0811bbe63c756645b2306bf0a75823a,
+          type: 3}
+        floatParameter: 0
+        intParameter: 3
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

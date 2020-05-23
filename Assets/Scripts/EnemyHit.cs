@@ -12,7 +12,7 @@ public class EnemyHit : MonoBehaviour
     private void Start()
     {
         //col = GetComponent<CapsuleCollider> ();
-        hitbox = GetComponentInChildren<BoxCollider>();
+        hitbox = GetComponent<BoxCollider>();
        
     }
 
@@ -21,11 +21,13 @@ public class EnemyHit : MonoBehaviour
         if (player != null)
         {
             player.GetComponent<HPCount>().Damaged(i);
+            //Debug.Log("Hit the player");
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        //Debug.Log("Algo entrou na minha vista" + other.name);
         if (other.tag == "Player")
         {
             player = other.gameObject;
@@ -34,8 +36,9 @@ public class EnemyHit : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-
-        player = null;
-
+        if(other.tag == "Player")
+        {
+            player = null;
+        }
     }
 }
