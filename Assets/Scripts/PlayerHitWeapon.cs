@@ -15,11 +15,6 @@ public class PlayerHitWeapon : MonoBehaviour
         
     }
 
-    private void Update ()
-    {
-        
-    }
-
     public void AttackHit(int i)
     {
         if(enemy != null)
@@ -49,8 +44,11 @@ public class PlayerHitWeapon : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
+        if (enemy.Contains(other.gameObject))
+        {
+            enemy.Remove(other.gameObject);
+        }
 
-        enemy.Remove(other.gameObject);
         
     }
 }

@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        int j = PlayerPrefs.GetInt("Movement");
+        j = PlayerPrefs.GetInt("Movement");
         if(j == 0)
         {
             tank = true;
@@ -50,10 +50,11 @@ public class PlayerMovement : MonoBehaviour
             tankWithAim = false;
         }
 
-        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
 
         moveTowards = transform.position;
         //Para caso o player apareça em qualquer lugar diferente do inicial
+
+        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
 
         anim = GetComponent<Animator>();
 

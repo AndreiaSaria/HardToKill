@@ -18,6 +18,7 @@ public class GameController : MonoBehaviour
     private PlayerMovement player;
 
     public string[] youLostTextList;
+    private string youWin = "You Win!";
 
     private void Start()
     {
@@ -41,6 +42,8 @@ public class GameController : MonoBehaviour
             gameHasEnded = true;
 
             player.enabled = false;//Parar com o loop de update do player
+            //Não posso fazer checkpoints fucionais pois https://stackoverflow.com/questions/55815916/unity-new-input-system-cant-enable-controls-after-disabling-them
+
             texto.SetText(youLostTextList[Random.Range(0, youLostTextList.Length)]); //Escolher um texto dentro do vetor de strings
 
             endGameCanvas.SetActive(true);
@@ -48,6 +51,23 @@ public class GameController : MonoBehaviour
         }
 
     }
+
+    public void Win()
+    {
+        if (!gameHasEnded)//Se o jogo não acabou, acabar.
+        {
+            gameHasEnded = true;
+
+            player.enabled = false;//Parar com o loop de update do player
+            //Não posso fazer checkpoints fucionais pois https://stackoverflow.com/questions/55815916/unity-new-input-system-cant-enable-controls-after-disabling-them
+
+            texto.SetText(youWin); //Escolher um texto dentro do vetor de strings
+
+            endGameCanvas.SetActive(true);
+            pauseButton.SetActive(false);
+        }
+    }
+
 
     public void GamePause() 
     {
@@ -82,8 +102,9 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    public void ReturnToCheckpoint()
-    {
 
+    public void Restart()
+    {
+        SceneManager.LoadScene(1);
     }
 }

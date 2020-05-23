@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 
 public class HPCount : MonoBehaviour
 {
+    public CountOfEnemies count;
     public int HP;
     //colei daqui https://answers.unity.com/questions/1633697/cant-drag-slider-onto-inspector.html
     public UnityEngine.UI.Slider sliderHp;
@@ -29,6 +30,7 @@ public class HPCount : MonoBehaviour
             if (this.gameObject.tag != "Player")
             {
                 Destroy(this.gameObject, 4f);
+                count.KilledEnemy();
             }
         }
         else

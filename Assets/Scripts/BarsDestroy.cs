@@ -2,16 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BarsDestroy : MonoBehaviour
+public class Co : MonoBehaviour
 {
-    public GameObject[] enemiesThatShouldDie;
+    public List<GameObject> enemiesThatShouldDie = new List<GameObject>();
 
-    // Update is called once per frame
-    void Update()
+    public void KilledOpponent(GameObject opponent)
     {
-        if(enemiesThatShouldDie.Length == 0)
+        if (enemiesThatShouldDie.Contains(opponent))
         {
-            Destroy(this.gameObject, 1f);
+            enemiesThatShouldDie.Remove(opponent);
+            AreOpponentsDead();
+        }
+       
+    }
+
+    public void AreOpponentsDead()
+    {
+        if (enemiesThatShouldDie.Count <= 0)
+        {
+
+            //return true;
+        }
+        else
+        {
+            //return false;
         }
     }
 }
