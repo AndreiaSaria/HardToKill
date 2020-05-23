@@ -78,7 +78,7 @@ public class MainMenuManager : MonoBehaviour
         }
 
     }
-    
+
     //public void ResetHighScore() //função para resetar highscore
     //{
     //    PlayerPrefs.DeleteKey("Score");
@@ -94,6 +94,10 @@ public class MainMenuManager : MonoBehaviour
     //    }
     //}
 
+
+
+
+    //Colei o toggle daqui https://forum.unity.com/threads/how-to-create-a-toggle-group.264229/
     public void Tank(bool active)
     {
         if (active)
