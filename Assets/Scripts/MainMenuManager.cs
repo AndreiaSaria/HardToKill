@@ -15,7 +15,7 @@ public class MainMenuManager : MonoBehaviour
     public GameObject quitButton;
     //public Text highScoreText;
     //public Button resetHighScore;
-    //public Button resetTutorial;
+    public Button resetTutorial;
     //public AudioMixer mixer;
 
     public void Start() //Ao iniciar na cena
@@ -70,6 +70,15 @@ public class MainMenuManager : MonoBehaviour
         {
             mainCanvas.SetActive(false);
             configCanvas.SetActive(true);
+
+            if (PlayerPrefs.HasKey("TutorialDone"))
+            {
+                resetTutorial.gameObject.SetActive(true);
+            }
+            else
+            {
+                resetTutorial.gameObject.SetActive(false);
+            }
         }
         else
         {
@@ -85,14 +94,14 @@ public class MainMenuManager : MonoBehaviour
     //    HighScore();
     //}
 
-    //public void ResetTutorial()
-    //{
-    //    if (PlayerPrefs.HasKey("TutorialDone"))
-    //    {
-    //        PlayerPrefs.DeleteKey("TutorialDone");
-    //        resetTutorial.gameObject.SetActive(false);
-    //    }
-    //}
+    public void ResetTutorial()
+    {
+        if (PlayerPrefs.HasKey("TutorialDone"))
+        {
+            PlayerPrefs.DeleteKey("TutorialDone");
+            resetTutorial.gameObject.SetActive(false);
+        }
+    }
 
 
 

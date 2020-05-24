@@ -14,11 +14,22 @@ public class TutorialTexts : MonoBehaviour
     void Start()
     {
         texto = uiTutorialTexts.GetComponentInChildren<TextMeshProUGUI>();
-
-        uiTutorialTexts.SetActive(true);
         i = 0;
-        texto.SetText(tutorialTexts[i]);
-        gameController.GameTutorial(true);
+        //Debug.Log(PlayerPrefs.HasKey("TutorialDone"));
+        if (PlayerPrefs.HasKey("TutorialDone"))
+        {
+            uiTutorialTexts.SetActive(false);
+            gameController.GameTutorial(false);
+        }
+        else
+        {
+            uiTutorialTexts.SetActive(true);
+
+            texto.SetText(tutorialTexts[i]);
+            gameController.GameTutorial(true);
+
+        }
+
     }
 
     public void Skip()
@@ -32,6 +43,8 @@ public class TutorialTexts : MonoBehaviour
         {
             uiTutorialTexts.SetActive(false);
             gameController.GameTutorial(false);
+            PlayerPrefs.SetInt("TutorialDone", 1);
+            PlayerPrefs.Save();
         }
     }
 

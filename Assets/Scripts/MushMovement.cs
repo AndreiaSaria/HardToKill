@@ -28,7 +28,12 @@ public class MushMovement : MonoBehaviour
             {
                 if (Vector3.Distance(transform.position, playerTransform.position) < 3)
                 {
-                    anim.Play("Attack");
+                    if (!anim.isPlaying)
+                    {
+                        //anim.PlayQueued("Attack", QueueMode.PlayNow, PlayMode.StopAll);
+                        anim.Play("Attack");
+                    }
+
                 }
                 else
                 {
@@ -43,7 +48,10 @@ public class MushMovement : MonoBehaviour
             }
             else
             {
-                anim.Play("Idle");
+                if (!anim.isPlaying)
+                {
+                    anim.Play("Idle");
+                }
             }
         }
 
@@ -53,7 +61,8 @@ public class MushMovement : MonoBehaviour
     {
         if (!dead)
         {
-            anim.Play("Damage");
+            anim.PlayQueued("Damage", QueueMode.PlayNow, PlayMode.StopAll);
+            //anim.Play("Damage");
         }
 
     }
@@ -61,7 +70,7 @@ public class MushMovement : MonoBehaviour
   
     public void Death()
     {
-        anim.Play("Death");
+        anim.PlayQueued("Death",QueueMode.PlayNow,PlayMode.StopAll);
         //Invoke("Metodo de menu/ desativar",anim.GetClip("Death").averageDuration)
         dead = true;
     }

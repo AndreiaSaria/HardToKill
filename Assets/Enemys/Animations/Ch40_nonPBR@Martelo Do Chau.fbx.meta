@@ -67,6 +67,38 @@ ModelImporter:
         floatParameter: 0
         intParameter: 3
         messageOptions: 0
+      - time: 0.1948052
+        functionName: Step
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 23c82288616cfb341a02108f604acc79,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.45887446
+        functionName: Step
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 23c82288616cfb341a02108f604acc79,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.8095238
+        functionName: Step
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 23c82288616cfb341a02108f604acc79,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 1
+        functionName: Step
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 23c82288616cfb341a02108f604acc79,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
