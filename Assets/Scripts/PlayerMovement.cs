@@ -33,22 +33,31 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        j = PlayerPrefs.GetInt("Movement");
-        if(j == 0)
+        if (PlayerPrefs.HasKey("Movement"))
+        {
+            j = PlayerPrefs.GetInt("Movement");
+            if (j == 0)
+            {
+                tank = true;
+                tankWithAim = false;
+            }
+            else if (j == 1)
+            {
+                tank = false;
+                tankWithAim = true;
+            }
+            else
+            {
+                tank = false;
+                tankWithAim = false;
+            }
+        }
+        else
         {
             tank = true;
             tankWithAim = false;
         }
-        else if(j == 1)
-        {
-            tank = false;
-            tankWithAim = true;
-        }
-        else
-        {
-            tank = false;
-            tankWithAim = false;
-        }
+
 
 
         moveTowards = transform.position;

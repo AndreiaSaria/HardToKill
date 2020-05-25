@@ -3423,6 +3423,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mixer: {fileID: 24100000, guid: 470345a962570cc498053bb7be41fc65, type: 2}
+  masterSlider: {fileID: 238820565}
+  musicSlider: {fileID: 1701707969}
+  fxSlider: {fileID: 1323422128}
 --- !u!1 &1870723404
 GameObject:
   m_ObjectHideFlags: 0
@@ -3819,7 +3822,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &1992614434
 GameObject:
   m_ObjectHideFlags: 0

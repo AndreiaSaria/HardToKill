@@ -7627,11 +7627,6 @@ PrefabInstance:
       propertyPath: controller
       value: 
       objectReference: {fileID: 336467791}
-    - target: {fileID: 4536143874803536158, guid: b7890e87ea2c17547bef0b6aef1f1645,
-        type: 3}
-      propertyPath: speed
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 5325094230294965832, guid: b7890e87ea2c17547bef0b6aef1f1645,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -15654,11 +15649,10 @@ MonoBehaviour:
   - To move you can use either the mouse or the joystick.
   - Joystick's left stick moves position and mouse left click sets the postition
     to be.
-  - 'To attack hold either one of these: A on xbox controller,  X on PS controllers,
-    left mouse button.'
-  - By default, the joystick movement is set to Tank, this can me changed on the
+  - 'To attack HOLD either one of these: Right Trigger on joystick, left mouse button.'
+  - By default, the joystick movement is set to Tank, this can be changed on the
     Main Menu.
-  - To pause press the start button on your joystick or click the pause button on
+  - To pause, press the start button on your joystick or click the pause button on
     the top right.
 --- !u!4 &2041051127
 Transform:

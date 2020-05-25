@@ -120,8 +120,8 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""235c4e0e-f55b-4c50-b1f9-c8b2e11b86f1"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""id"": ""27d3c47e-200e-49d0-bb28-2854c1b0cfe6"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""ControlScheme"",
@@ -131,11 +131,11 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""27d3c47e-200e-49d0-bb28-2854c1b0cfe6"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""id"": ""2dcbdfe7-482f-45ef-9e9f-133e17065de1"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""ControlScheme"",
+                    ""groups"": """",
                     ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false

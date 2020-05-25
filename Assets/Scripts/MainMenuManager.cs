@@ -29,8 +29,12 @@ public class MainMenuManager : MonoBehaviour
         mainCanvas.SetActive(true);
         configCanvas.SetActive(false);
 
-        PlayerPrefs.SetInt("Movement", 0); // No começo estamos no movimento Tank
-        PlayerPrefs.Save();
+        if (!PlayerPrefs.HasKey("Movement"))
+        {
+            PlayerPrefs.SetInt("Movement", 0); // No começo estamos no movimento Tank
+            PlayerPrefs.Save();
+        }
+
     }
 
     public void Play()//Função associada no botão play
