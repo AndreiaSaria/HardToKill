@@ -23,6 +23,7 @@ public class PlayerHitWeapon : MonoBehaviour
             {
                 if (g != null)//Por que isso? Porque o inimigo pode ter sido destroyed antes do attack hit.
                 {
+                    GetComponent<SetSounds>().HitOther();
                     g.GetComponent<HPCount>().Damaged(i);
                 }
                 else

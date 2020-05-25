@@ -1060,6 +1060,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   step: {fileID: 8300000, guid: 21adfd916872ab34c8161ea0945d05e6, type: 3}
   death: {fileID: 8300000, guid: 4304da3fea469ff468a163461ea84a14, type: 3}
+  damaged: {fileID: 0}
+  hit: {fileID: 8300000, guid: 418ca5ac33ab4ab4bab4c1e076bfdf52, type: 3}
+  trowArrow: {fileID: 0}
   pitchRange: 0.2
 --- !u!82 &2241286023303254908
 AudioSource:
@@ -1083,7 +1086,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 20
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -1118,7 +1121,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.413
       inSlope: 0
       outSlope: 0
       tangentMode: 0

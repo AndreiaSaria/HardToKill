@@ -9,6 +9,7 @@ public class ArrowHit : MonoBehaviour
     //private GameObject[] enemy;
     private GameObject player;
     public int damage;
+    public AudioClip hit;
 
     private void Start()
     {
@@ -21,6 +22,7 @@ public class ArrowHit : MonoBehaviour
     {
         if (player != null)
         {
+            player.GetComponent<AudioSource>().PlayOneShot(hit);
             player.GetComponent<HPCount>().Damaged(i);
         }
     }

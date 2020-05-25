@@ -28,7 +28,7 @@ public class MushMovement : MonoBehaviour
             {
                 if (Vector3.Distance(transform.position, playerTransform.position) < 3)
                 {
-                    if (!anim.isPlaying)
+                    if (!anim.IsPlaying("Damage"))
                     {
                         //anim.PlayQueued("Attack", QueueMode.PlayNow, PlayMode.StopAll);
                         anim.Play("Attack");
@@ -48,10 +48,9 @@ public class MushMovement : MonoBehaviour
             }
             else
             {
-                if (!anim.isPlaying)
-                {
-                    anim.Play("Idle");
-                }
+
+                anim.Play("Idle");
+
             }
         }
 

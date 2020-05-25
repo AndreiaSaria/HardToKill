@@ -22,6 +22,7 @@ public class EnemyHit : MonoBehaviour
         {
             player.GetComponent<HPCount>().Damaged(i);
             //Debug.Log("Hit the player");
+            this.GetComponent<SetSounds>().HitOther();
         }
     }
 
