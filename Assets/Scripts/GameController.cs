@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;//Para retornar ao menu
 using TMPro; //Para usar o text mesh pro
+using UnityEngine.EventSystems; //para controlar o evento selecionado caso o pause seja pelo joystick
 
 public class GameController : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class GameController : MonoBehaviour
     public GameObject endGameCanvas;
 
     public GameObject pauseButton;
+    public GameObject rtButton;
+
     public GameObject gameOverText;
 
     private TextMeshProUGUI texto;
@@ -75,6 +78,8 @@ public class GameController : MonoBehaviour
         {
             pauseCanvas.SetActive(true);
             Time.timeScale = 0;
+            EventSystem.current.SetSelectedGameObject(rtButton); //Para caso esteja a usar o controle, eu tenha a certeza que consegue usar o menu.
+                                                                 //Tirei daqui https://answers.unity.com/questions/883220/how-to-change-selected-button-in-eventsystem-or-de.html
         }
         else
         {

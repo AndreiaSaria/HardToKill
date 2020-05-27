@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-//Não é como se eu já tivesse isso quase pronto do meu outro jogo ¯\_(ツ)_/¯ 
+using UnityEngine.EventSystems; //para controlar o evento selecionado caso o pause seja pelo joystick
 
 //using UnityEngine.Audio; //Biblioteca necessária para usar funções de audio
 
@@ -16,6 +16,8 @@ public class MainMenuManager : MonoBehaviour
     //public Text highScoreText;
     //public Button resetHighScore;
     public Button resetTutorial;
+    public GameObject exitSettings;
+    public GameObject playButton;
     //public AudioMixer mixer;
 
     public void Start() //Ao iniciar na cena
@@ -75,6 +77,9 @@ public class MainMenuManager : MonoBehaviour
             mainCanvas.SetActive(false);
             configCanvas.SetActive(true);
 
+            EventSystem.current.SetSelectedGameObject(exitSettings);
+            //Tirei daqui https://answers.unity.com/questions/883220/how-to-change-selected-button-in-eventsystem-or-de.html
+
             if (PlayerPrefs.HasKey("TutorialDone"))
             {
                 resetTutorial.gameObject.SetActive(true);
@@ -88,6 +93,8 @@ public class MainMenuManager : MonoBehaviour
         {
             mainCanvas.SetActive(true);
             configCanvas.SetActive(false);
+
+            EventSystem.current.SetSelectedGameObject(playButton);
         }
 
     }

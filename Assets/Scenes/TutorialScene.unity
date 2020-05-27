@@ -1583,6 +1583,7 @@ MonoBehaviour:
   pauseCanvas: {fileID: 31263037}
   endGameCanvas: {fileID: 1733929229}
   pauseButton: {fileID: 881159497}
+  rtButton: {fileID: 990605839}
   gameOverText: {fileID: 1626289574}
   youLostTextList:
   - Oh well, REKT
