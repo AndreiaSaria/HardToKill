@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour
 
     public GameObject pauseButton;
     public GameObject rtButton;
+    public GameObject restartButton;
 
     public GameObject gameOverText;
 
@@ -51,6 +52,9 @@ public class GameController : MonoBehaviour
 
             endGameCanvas.SetActive(true);
             pauseButton.SetActive(false);
+
+            EventSystem.current.SetSelectedGameObject(restartButton);//Para caso esteja a usar o controle, eu tenha a certeza que consegue usar o menu.
+                                                                     //Tirei daqui https://answers.unity.com/questions/883220/how-to-change-selected-button-in-eventsystem-or-de.html
         }
 
     }
@@ -68,6 +72,9 @@ public class GameController : MonoBehaviour
 
             endGameCanvas.SetActive(true);
             pauseButton.SetActive(false);
+
+            EventSystem.current.SetSelectedGameObject(restartButton);//Para caso esteja a usar o controle, eu tenha a certeza que consegue usar o menu.
+                                                                     //Tirei daqui https://answers.unity.com/questions/883220/how-to-change-selected-button-in-eventsystem-or-de.html
         }
     }
 

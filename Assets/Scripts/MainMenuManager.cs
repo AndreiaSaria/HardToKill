@@ -111,6 +111,8 @@ public class MainMenuManager : MonoBehaviour
         {
             PlayerPrefs.DeleteKey("TutorialDone");
             resetTutorial.gameObject.SetActive(false);
+
+            EventSystem.current.SetSelectedGameObject(exitSettings);
         }
     }
 

@@ -1528,7 +1528,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Restart from checkpoint
+  m_Text: Restart
 --- !u!222 &327604914
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1584,6 +1584,7 @@ MonoBehaviour:
   endGameCanvas: {fileID: 1733929229}
   pauseButton: {fileID: 881159497}
   rtButton: {fileID: 990605839}
+  restartButton: {fileID: 771185484}
   gameOverText: {fileID: 1626289574}
   youLostTextList:
   - Oh well, REKT
